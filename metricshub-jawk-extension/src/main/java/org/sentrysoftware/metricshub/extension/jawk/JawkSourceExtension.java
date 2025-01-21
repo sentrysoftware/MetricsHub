@@ -125,18 +125,21 @@ public class JawkSourceExtension implements ICompositeSourceScriptExtension {
 
 		log.debug("Hostname {} - Awk Operation. AWK Script:\n{}\n", hostname, awkScript);
 
-		final String input = jawkSource.getInput();
-		final String inputContent = SourceUpdaterProcessor.replaceSourceReferenceContent(
-			input,
-			telemetryManager,
-			connectorId,
-			"Awk",
-			source.getKey()
-		);
-
 		final AwkSettings settings = new AwkSettings();
-		if (inputContent != null && !inputContent.isEmpty()) {
-			settings.setInput(new ByteArrayInputStream(inputContent.getBytes(StandardCharsets.UTF_8)));
+
+		final String input = jawkSource.getInput();
+		if (input != null && !input.isEmpty()) {
+			final String inputContent = SourceUpdaterProcessor.replaceSourceReferenceContent(
+				input,
+				telemetryManager,
+				connectorId,
+				"Awk",
+				source.getKey()
+			);
+
+			if (inputContent != null && !inputContent.isEmpty()) {
+				settings.setInput(new ByteArrayInputStream(inputContent.getBytes(StandardCharsets.UTF_8)));
+			}
 		}
 
 		// Create the OutputStream

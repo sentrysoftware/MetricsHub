@@ -22,13 +22,13 @@ package org.sentrysoftware.metricshub.engine.connector.model.monitor.task.source
  */
 
 import static com.fasterxml.jackson.annotation.Nulls.FAIL;
+import static com.fasterxml.jackson.annotation.Nulls.SKIP;
 import static org.sentrysoftware.metricshub.engine.common.helpers.MetricsHubConstants.NEW_LINE;
 import static org.sentrysoftware.metricshub.engine.common.helpers.StringHelper.addNonNull;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
@@ -39,7 +39,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import org.sentrysoftware.metricshub.engine.connector.deserializer.custom.NonBlankDeserializer;
 import org.sentrysoftware.metricshub.engine.connector.model.common.ExecuteForEachEntryOf;
 import org.sentrysoftware.metricshub.engine.connector.model.monitor.task.source.compute.Compute;
 import org.sentrysoftware.metricshub.engine.strategy.source.ISourceProcessor;
@@ -67,9 +66,7 @@ public class JawkSource extends Source {
 	/**
 	 * The input on which to execute the JAWK task.
 	 */
-	@NonNull
-	@JsonSetter(nulls = FAIL)
-	@JsonDeserialize(using = NonBlankDeserializer.class)
+	@JsonSetter(nulls = SKIP)
 	private String input;
 
 	/**
