@@ -7,6 +7,7 @@ description: MetricsHub Protocol CLIs provide powerful command-line tools for ad
 
 Use the:
 
+* **[AWK CLI](awk.md)**: to execute AWK scripts on input data.
 * **[HTTP CLI](http.md)**: to test connectivity to HTTP-based resources using the `GET`, `POST`, `PUT`, or `DELETE` methods
 * **[IPMI CLI](ipmi.md)**: to verify the communication with hardware components via IPMI-over-LAN
 * **[JDBC CLI](jdbc.md)**: to validate SQL queries and database connectivity
