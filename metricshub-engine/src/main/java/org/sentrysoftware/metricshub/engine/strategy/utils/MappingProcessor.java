@@ -1312,7 +1312,7 @@ public class MappingProcessor {
 	 * @return Resource
 	 */
 	public Resource interpretMappingResource() {
-		final MappingResource mappingResource = mapping.getResource();
+		final MappingResource mappingResource = mapping.getAttachToResource();
 
 		if (mappingResource != null && mappingResource.hasType()) {
 			return Resource

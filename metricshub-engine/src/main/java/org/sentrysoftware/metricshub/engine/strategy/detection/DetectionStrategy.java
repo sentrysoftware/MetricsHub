@@ -208,6 +208,7 @@ public class DetectionStrategy extends AbstractStrategy {
 			.attributes(monitorAttributes)
 			.connectorId(configuredConnectorId)
 			.discoveryTime(strategyTime)
+			.isResource(true)
 			.build();
 
 		// Create or update the monitor by calling monitor factory
@@ -274,6 +275,7 @@ public class DetectionStrategy extends AbstractStrategy {
 			.attributes(monitorAttributes)
 			.connectorId(connectorId)
 			.discoveryTime(strategyTime)
+			.isResource(true)
 			.build();
 
 		// Create or update the monitor by calling monitor factory

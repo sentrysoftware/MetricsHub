@@ -66,7 +66,7 @@ public class MonitorFactory {
 
 	private Map<String, String> attributes;
 
-	private Resource resource;
+	private Resource attachedToResource;
 
 	private Map<String, List<AlertRule>> alertRules;
 
@@ -82,6 +82,8 @@ public class MonitorFactory {
 	// Monitor job keys
 	private Set<String> keys;
 
+	private boolean isResource;
+
 	/**
 	 * This method creates or updates the monitor
 	 *
@@ -89,7 +91,7 @@ public class MonitorFactory {
 	 * @return created or updated {@link Monitor} instance
 	 */
 	public Monitor createOrUpdateMonitor(final String id) {
-		return createOrUpdateMonitor(attributes, resource, monitorType, id);
+		return createOrUpdateMonitor(attributes, isResource, attachedToResource, monitorType, id);
 	}
 
 	/**
@@ -107,31 +109,34 @@ public class MonitorFactory {
 
 		// Build the monitor unique identifier
 		final String id = buildMonitorId(connectorId, monitorType, keysString);
-		return createOrUpdateMonitor(attributes, resource, monitorType, id);
+		return createOrUpdateMonitor(attributes, isResource, attachedToResource, monitorType, id);
 	}
 
 	/**
 	 * This method creates or updates the monitor
 	 *
-	 * @param attributes  monitor attributes
-	 * @param resource    monitor resource
-	 * @param monitorType the type of the monitor
-	 * @param id          unique identifier of the monitor
+	 * @param attributes        Monitor's attributes
+	 * @param isResource        Whether the monitor is considered as a Resource
+	 * @param attachToResource  Resource to which the monitor is attached
+	 * @param monitorType       Type of the monitor
+	 * @param id                Unique identifier of the monitor
 	 * @return Monitor instance
 	 */
 	Monitor createOrUpdateMonitor(
 		final Map<String, String> attributes,
-		final Resource resource,
+		final boolean isResource,
+		final Resource attachToResource,
 		final String monitorType,
 		final String id
 	) {
-		return createOrUpdateMonitor(attributes, resource, monitorType, id, discoveryTime);
+		return createOrUpdateMonitor(attributes, isResource, attachToResource, monitorType, id, discoveryTime);
 	}
 
 	/**
 	 * This method creates or updates the monitor
 	 *
 	 * @param attributes    monitor attributes
+	 * @param isResource    whether the monitor is considered as a Resource or not
 	 * @param resource      monitor resource
 	 * @param monitorType   the type of the monitor
 	 * @param id            unique identifier of the monitor
@@ -140,6 +145,7 @@ public class MonitorFactory {
 	 */
 	Monitor createOrUpdateMonitor(
 		final Map<String, String> attributes,
+		final boolean isResource,
 		final Resource resource,
 		final String monitorType,
 		final String id,
@@ -149,7 +155,8 @@ public class MonitorFactory {
 
 		if (foundMonitor != null) {
 			foundMonitor.setAttributes(attributes);
-			foundMonitor.setResource(resource);
+			foundMonitor.setResource(isResource);
+			foundMonitor.setAttachToResource(resource);
 			foundMonitor.setType(monitorType);
 			foundMonitor.setDiscoveryTime(discoveryTime);
 
@@ -160,7 +167,8 @@ public class MonitorFactory {
 		} else {
 			final Monitor newMonitor = Monitor
 				.builder()
-				.resource(resource)
+				.isResource(isResource)
+				.attachToResource(resource)
 				.attributes(attributes)
 				.type(monitorType)
 				.id(id)
@@ -239,6 +247,7 @@ public class MonitorFactory {
 		// Create the monitor using createOrUpdateMonitor
 		final Monitor monitor = createOrUpdateMonitor(
 			monitorAttributes,
+			true, // The endpoint host monitor is a resource
 			monitorResource,
 			KnownMonitorType.HOST.getKey(),
 			telemetryManager.getHostConfiguration().getHostId()

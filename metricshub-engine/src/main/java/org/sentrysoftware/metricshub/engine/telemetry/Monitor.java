@@ -60,13 +60,16 @@ public class Monitor {
 	@Default
 	private Map<String, List<AlertRule>> alertRules = new HashMap<>();
 
-	private Resource resource;
+	private Resource attachToResource;
 	private Long discoveryTime;
 	private String type;
 	private String id;
 
 	@JsonProperty("is_endpoint")
 	private boolean isEndpoint;
+
+	@JsonProperty("is_resource")
+	private boolean isResource;
 
 	/**
 	 * Gets a metric of the specified type by name.

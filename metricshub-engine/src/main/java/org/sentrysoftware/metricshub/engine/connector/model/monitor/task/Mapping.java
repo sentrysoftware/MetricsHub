@@ -86,8 +86,14 @@ public class Mapping implements Serializable {
 	private Map<String, String> legacyTextParameters = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
 	/**
-	 * The resource associated with the mapping.
+	 * The resource to which the monitor is attached
 	 */
 	@JsonSetter(nulls = SKIP)
-	private MappingResource resource;
+	private MappingResource attachToResource;
+
+	/**
+	 * Whether the monitor is considered as a Resource or not
+	 */
+	@Default
+	private boolean isResource = true;
 }

@@ -269,10 +269,10 @@ public abstract class AbstractAllAtOnceStrategy extends AbstractStrategy {
 	/**
 	 * This method processes same type monitors
 	 *
-	 * @param connector
-	 * @param mapping
-	 * @param monitorType
-	 * @param hostname
+	 * @param connector   The connector instance defining the ID and also used to collect monitor's metrics
+	 * @param mapping     The mapping instance defining the attributes, metrics, conditional collection, legacy text parameters and resource
+	 * @param monitorType The type of the monitor we currently process
+	 * @param hostname    The host name of the monitored resource
 	 */
 	private void processSameTypeMonitors(
 		final Connector connector,
@@ -329,7 +329,7 @@ public abstract class AbstractAllAtOnceStrategy extends AbstractStrategy {
 
 		log.debug(
 			"Hostname {} - Start {} {} mapping with source {}, attributes {}, metrics {}, conditional collection {}, legacy text parameters {} " +
-			"and resource{}. Connector ID: {}.",
+			"isResource {} and attached resource {}. Connector ID: {}.",
 			hostname,
 			monitorType,
 			getJobName(),
@@ -338,7 +338,8 @@ public abstract class AbstractAllAtOnceStrategy extends AbstractStrategy {
 			mapping.getMetrics(),
 			mapping.getConditionalCollection(),
 			mapping.getLegacyTextParameters(),
-			mapping.getResource(),
+			mapping.isResource(),
+			mapping.getAttachToResource(),
 			connectorId
 		);
 
@@ -376,7 +377,8 @@ public abstract class AbstractAllAtOnceStrategy extends AbstractStrategy {
 				.monitorType(monitorType)
 				.telemetryManager(telemetryManager)
 				.attributes(noContextAttributeInterpretedValues)
-				.resource(resource)
+				.isResource(mapping.isResource())
+				.attachedToResource(resource)
 				.connectorId(connectorId)
 				.discoveryTime(strategyTime)
 				.keys(monitorJob.getKeys())
