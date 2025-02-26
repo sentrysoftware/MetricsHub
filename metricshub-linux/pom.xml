@@ -276,6 +276,8 @@
 								<argument>sshcli=metricshub-sshcli.properties</argument>
 								<argument>--add-launcher</argument>
 								<argument>pingcli=metricshub-pingcli.properties</argument>
+								<argument>--add-launcher</argument>
+								<argument>awkcli=metricshub-awkcli.properties</argument>
 								<argument>@jpackage.txt</argument>
 							</arguments>
 							<workingDirectory>${project.build.directory}/jpackage</workingDirectory>

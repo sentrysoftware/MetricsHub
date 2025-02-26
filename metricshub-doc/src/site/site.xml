@@ -120,6 +120,7 @@
 			<item name="MetricsHub Logs" href="troubleshooting/metricshub-logs.html"/>
 			<item name="OTel Logs" href="troubleshooting/otel-logs.html"/>
 			<item name="Protocol CLIs" href="troubleshooting/cli/index.html">
+				<item name="AWK CLI" href="troubleshooting/cli/awk.html"/>
 				<item name="HTTP CLI" href="troubleshooting/cli/http.html"/>
 				<item name="IPMI CLI" href="troubleshooting/cli/ipmi.html"/>
 				<item name="JDBC CLI" href="troubleshooting/cli/jdbc.html"/>
